@@ -55,7 +55,11 @@
               aria-describedby="addon-wrapping"
               required
             />
-            <button class="input-group-text" (click)="onShowPwd()">
+            <button
+              type="button"
+              class="input-group-text"
+              (click)="onShowPwd()"
+            >
               <i class="fa-solid fa-eye" *ngIf="showPwd; else openEye"></i>
               <ng-template #openEye>
                 <i class="fa-solid fa-eye-slash"></i>
@@ -80,6 +84,7 @@
             [disabled]="loginForm.invalid"
           />
         </div>
+        <div class="err-msg">{{errorMsg}}</div>
       </form>
     </div>
   </div>

@@ -1,0 +1,53 @@
+<div
+  class="sidebar d-flex flex-column shadow flex-shrink-0 p-2"
+  [class.shrink]="shrink"
+>
+  <button class="btn d-flex justify-content-around" (click)="shrinkDrawer()">
+    <i class="fa-solid fa-bars fs-3" *ngIf="shrink; else staggerd"></i>
+    <ng-template #staggerd>
+      <i class="fa-solid fa-bars-staggered fs-3"></i>
+    </ng-template>
+    <span class="h5 fw-bold px-2" [class.d-none]="shrink">
+      Life Event Reminder
+    </span>
+  </button>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item mb-3">
+      <a
+        type="button"
+        class="nav-link"
+        [class.active]="nav == 'home'"
+        (click)="onNavSelected('home')"
+        aria-current="page"
+      >
+        <i class="fa-solid fa-house"></i>
+        <span class="px-2" [class.d-none]="shrink">Home</span>
+      </a>
+    </li>
+    <li class="nav-item mb-3">
+      <a
+        type="button"
+        class="nav-link"
+        [class.active]="nav == 'employees'"
+        (click)="onNavSelected('employees')"
+        aria-current="page"
+      >
+        <i class="fa-solid fa-users"></i>
+        <span class="px-2" [class.d-none]="shrink">Employess</span>
+      </a>
+    </li>
+    <li class="nav-item mb-3">
+      <a
+        type="button"
+        class="nav-link"
+        [class.active]="nav == 'events'"
+        (click)="onNavSelected('events')"
+        aria-current="page"
+      >
+        <i class="fa-solid fa-gifts"></i>
+        <span class="px-2" [class.d-none]="shrink">Employess</span>
+      </a>
+    </li>
+  </ul>
+</div>

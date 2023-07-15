@@ -1,0 +1,19 @@
+<div class="container-fluid m-0 p-0">
+  <app-navbar
+    [currentNav]="selectedNav"
+    [headerTitle]="title"
+    (onSelectedNavChange)="onSelectedNavChange($event)"
+  >
+    <div class="w-100 h-100" [ngSwitch]="selectedNav">
+      <div *ngSwitchCase="'home'">
+        <app-home></app-home>
+      </div>
+      <div *ngSwitchCase="'employees'">
+        <app-employees></app-employees>
+      </div>
+      <div *ngSwitchCase="'events'">
+        <app-events></app-events>
+      </div>
+    </div>
+  </app-navbar>
+</div>

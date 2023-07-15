@@ -1,0 +1,9 @@
+<div class="nav-container">
+  <app-header [isShrink]="isShrink" [title]="headerTitle">
+    <app-sidebar [nav]="currentNav" (selectedNav)="onNavigationChange($event)" [shrink]="isShrink" (onDrawerShrink)="onDrawerShrink($event)"></app-sidebar>
+    <div class="main-content">
+      <ng-content></ng-content>
+    </div>
+  </app-header>
+  
+</div>

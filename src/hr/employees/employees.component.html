@@ -1,0 +1,179 @@
+<div class="container m-0 p-0">
+  <div class="employees-action mx-3 my-2">
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-primary"
+      (click)="this.addModal.show()"
+    >
+      <i class="fa-solid fa-user-plus"></i> &nbsp; Add New Employee
+    </button>
+  </div>
+  <div class="employee-list pb-3 table-responsive mt-3 w-100">
+    <table class="table table-hover shadow m-2 border">
+      <thead>
+        <tr>
+          <th class="text-center" width="40" scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Designation</th>
+          <th scope="col">Reporting To</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees; let i = index">
+          <td class="text-center">{{ i + 1 }}</td>
+          <td>{{ emp.fName }} {{ emp.lName }}</td>
+          <td>{{ emp.designation }}</td>
+          <td>{{ emp.manager?.fName }} {{ emp.manager?.lName }}</td>
+          <td>
+            <button type="button" class="btn btn-outline-warning m-1">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button type="button" class="btn btn-outline-danger m-1">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="addEmployeeModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  role="dialog"
+  aria-labelledby="modalTitleId"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleId">Add New Employee</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form #addEmpForm="ngForm" (submit)="addOrUpdateEmployee()">
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col-6">
+              <div>
+                <label for="exampleFormControlInput1" class="form-label">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="fName"
+                  placeholder="Employee first name"
+                  name="fName"
+                  [(ngModel)]="selectedEmployee.fName"
+                  [class.success]="fName.valid && fName.touched"
+                  [class.error]="!fName.valid && fName.touched"
+                  #fName="ngModel"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div>
+                <label for="exampleFormControlInput1" class="form-label">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lName"
+                  placeholder="Employee last name"
+                  name="lName"
+                  [(ngModel)]="selectedEmployee.lName"
+                  [class.success]="lName.valid && lName.touched"
+                  [class.error]="!lName.valid && lName.touched"
+                  #lName="ngModel"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-12">
+              <div>
+                <label for="exampleFormControlInput1" class="form-label">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="name@company.com"
+                  [class.success]="email.valid && email.touched"
+                  [class.error]="!email.valid && email.touched"
+                  name="email"
+                  #email="ngModel"
+                  [(ngModel)]="selectedEmployee.email"
+                  required
+                  email
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div>
+                <label for="exampleFormControlInput1" class="form-label">
+                  Designation
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="Employee Designation"
+                  name="designation"
+                  [(ngModel)]="selectedEmployee.designation"
+                  [class.success]="designation.valid && designation.touched"
+                  [class.error]="!designation.valid && designation.touched"
+                  #designation="ngModel"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="exampleDataList" class="form-label">
+                Datalist example
+              </label>
+              <input
+                class="form-control"
+                list="datalistOptions"
+                id="exampleDataList"
+                placeholder="Type to search..."
+                name="selectedManager"
+                [(ngModel)]="selectedManager"
+                [class.success]="manager.valid && manager.touched"
+                [class.error]="!manager.valid && manager.touched"
+                #manager="ngModel"
+                required
+              />
+              <datalist id="datalistOptions">
+                <option
+                  *ngFor="let e of employees"
+                  [value]="e.fName + ' ' + e.lName"
+                ></option>
+              </datalist>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="submit"
+            class="btn btn-sm btn-outline-success px-3 py-2 rounded-3"
+            [disabled]="!addEmpForm.valid"
+            value="Save"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
