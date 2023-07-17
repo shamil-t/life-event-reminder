@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { EventsComponent } from './events/events.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    HRRoutingModule,FormsModule
+    HRRoutingModule, FormsModule, HttpClientModule
   ]
 })
 export class HRModule { }

@@ -1,17 +1,18 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap'
-import { UserType } from 'src/types/UserType';
+import { ResponseUserType, UserType } from 'src/types/UserType';
+import { EmployeeService } from '../services/employee.service';
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.sass']
 })
-export class EmployeesComponent implements AfterViewInit {
+export class EmployeesComponent implements OnInit, AfterViewInit {
 
   addModal !: Modal
   selectedEmployee: UserType = {
-    fName: '',
-    lName: '',
+    fname: '',
+    lname: '',
     email: '',
     phone: '',
     designation: '',
@@ -22,11 +23,11 @@ export class EmployeesComponent implements AfterViewInit {
 
   selectedManager: string = ''
 
-  constructor() {
+  constructor(private es: EmployeeService) {
     this.employees.push({
       id: 1,
-      fName: 'Mohammed',
-      lName: 'Shamil',
+      fname: 'Mohammed',
+      lname: 'Shamil',
       email: 'mohammed.sha@orioninc.com',
       phone: '+91 8891468541',
       designation: 'Software Engineer',
@@ -34,8 +35,8 @@ export class EmployeesComponent implements AfterViewInit {
       mangerId: 0,
       manager: {
         id: 1,
-        fName: 'Linilal',
-        lName: 'Mathalippara',
+        fname: 'Linilal',
+        lname: 'Mathalippara',
         email: 'mohammed.sha@orioninc.com',
         phone: '+91 8891468541',
         designation: 'Software Engineer',
@@ -44,9 +45,25 @@ export class EmployeesComponent implements AfterViewInit {
       }
     })
   }
+  ngOnInit(): void {
+    this.es.getAllEmployees().subscribe((r: ResponseUserType) => {
+      console.log(r);
+      this.employees = r.data as UserType[]
+    })
+  }
 
   ngAfterViewInit(): void {
     this.addModal = new Modal(document.getElementById('addEmployeeModal') as HTMLElement)
+  }
+
+  onEditEmployee(emp: UserType) {
+    this.selectedEmployee = emp
+    this.addModal.show()
+  }
+
+  onManagerChange(ev: Event){
+    console.log((ev.target as HTMLInputElement).value);
+    
   }
 
   addOrUpdateEmployee() {

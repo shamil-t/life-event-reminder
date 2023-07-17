@@ -1,8 +1,8 @@
 <div class="container m-0 p-0">
-  <div class="employees-action mx-3 my-2">
+  <div class="employees-action mx-3">
     <button
       type="button"
-      class="btn btn-sm btn-outline-primary"
+      class="btn btn-sm btn-outline-primary mt-2"
       (click)="this.addModal.show()"
     >
       <i class="fa-solid fa-user-plus"></i> &nbsp; Add New Employee
@@ -22,11 +22,15 @@
       <tbody>
         <tr *ngFor="let emp of employees; let i = index">
           <td class="text-center">{{ i + 1 }}</td>
-          <td>{{ emp.fName }} {{ emp.lName }}</td>
+          <td>{{ emp.fname }} {{ emp.lname }}</td>
           <td>{{ emp.designation }}</td>
-          <td>{{ emp.manager?.fName }} {{ emp.manager?.lName }}</td>
+          <td>{{ emp.manager?.fname }} {{ emp.manager?.lname }}</td>
           <td>
-            <button type="button" class="btn btn-outline-warning m-1">
+            <button
+              type="button"
+              class="btn btn-outline-warning m-1"
+              (click)="onEditEmployee(emp)"
+            >
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
             <button type="button" class="btn btn-outline-danger m-1">
@@ -74,7 +78,7 @@
                   id="fName"
                   placeholder="Employee first name"
                   name="fName"
-                  [(ngModel)]="selectedEmployee.fName"
+                  [(ngModel)]="selectedEmployee.fname"
                   [class.success]="fName.valid && fName.touched"
                   [class.error]="!fName.valid && fName.touched"
                   #fName="ngModel"
@@ -93,7 +97,7 @@
                   id="lName"
                   placeholder="Employee last name"
                   name="lName"
-                  [(ngModel)]="selectedEmployee.lName"
+                  [(ngModel)]="selectedEmployee.lname"
                   [class.success]="lName.valid && lName.touched"
                   [class.error]="!lName.valid && lName.touched"
                   #lName="ngModel"
@@ -155,12 +159,13 @@
                 [class.error]="!manager.valid && manager.touched"
                 #manager="ngModel"
                 required
+                (change)="onManagerChange($event)"
               />
               <datalist id="datalistOptions">
                 <option
                   *ngFor="let e of employees"
-                  [value]="e.fName + ' ' + e.lName"
-                ></option>
+                  [value]="e.id"
+                >{{e.fname + ' ' + e.lname}}</option>
               </datalist>
             </div>
           </div>

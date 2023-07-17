@@ -1,7 +1,7 @@
 export interface UserType {
     id?: number;
-    fName: string;
-    lName: string;
+    fname: string;
+    lname: string;
     email: string;
     phone: string;
     password?: string;
@@ -9,4 +9,9 @@ export interface UserType {
     profileImg: string;
     mangerId: number;
     manager?: UserType
+}
+
+export interface ResponseUserType {
+    data: UserType[] | UserType;
+    status: string
 }
